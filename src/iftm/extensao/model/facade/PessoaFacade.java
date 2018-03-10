@@ -18,7 +18,12 @@ public class PessoaFacade {
 	
 	@WebMethod(operationName="retornaTodasAsPessoas")
 	public List<Pessoa> getPessoas() {
-		return pessoaDao.getPessoas();
+		List<Pessoa> pessoas = pessoaDao.getPessoas();
+		for (Pessoa p : pessoas) {
+			p.setParticipacoes(null);
+			p.setProjetosAutor(null);
+		}
+		return pessoas;
 	}
 	
 	@WebMethod(operationName="retornaPessoaPorID")
