@@ -1,4 +1,4 @@
-package iftm.extensao.model.facade;
+package iftm.extensao.model.facade.ws;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.ws.rs.PathParam;
 
 import iftm.extensao.model.dao.PessoaDao;
 import iftm.extensao.model.domain.Pessoa;
@@ -28,18 +29,27 @@ public class PessoaFacade {
 	
 	@WebMethod(operationName="retornaPessoaPorID")
 	public Pessoa getPessoa(@WebParam(name="IdPessoa") Integer id) {
-		
-		Pessoa pessoa = new Pessoa();
-		
-		if (id == 1) {
-			pessoa.setId(1);
-			pessoa.setNome("Nicollas");
-		} else {
-			pessoa.setId(2);
-			pessoa.setNome("Tulio");
-		}
-	
-		return pessoa;
+		Pessoa p = pessoaDao.getPessoaId(id);
+		p.setParticipacoes(null);
+		p.setProjetosAutor(null);
+		return p;
 	}
+	
+	
+	@WebMethod(operationName="deletarPessoa")
+	public void excluirPessoa(@PathParam("id") Integer id) {
+		pessoaDao.excluirPessoa(id);
+	}
+	
+	@WebMethod(operationName="salvarPessoa")
+	public void salvarPessoa(@WebParam(name="pessoa") Pessoa pessoa) {
+		pessoaDao.salvarPessoa(pessoa);
+	}
+	
+	@WebMethod(operationName="atualizarPessoa")
+	public void atualizarPessoa(@WebParam(name="pessoa") Pessoa pessoa) {
+		pessoaDao.atualizarPessoa(pessoa);
+	}
+	
 
 }

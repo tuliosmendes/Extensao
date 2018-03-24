@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="TB_PESSOA")
+@XmlRootElement
 public class Pessoa implements Serializable {
 	
 	/**
